@@ -1,0 +1,37 @@
+﻿@page "/books/edit"
+@page "/books/edit/{BookId}"
+
+@if (Book == null)
+{
+	<p>
+		<em>Loading...</em>
+	</p>
+}
+else
+{
+	@if (!Saved)
+	{
+		<h3>Editing @BookId: @Book.Title</h3>
+		<EditForm Model="@Book" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+			<div class="form-group row">
+				<label for="title" class="col-sm-3">Title: </label>
+				<InputText id="title" @bind-Value="@Book.Title" placeholder="Enter title"></InputText>
+			</div>
+			<div class="form-group row">
+				<label for="author" class="col-sm-3">Author: </label>
+				<InputText id="author" @bind-Value="@Book.Author" placeholder="Enter author"></InputText>
+			</div>
+			<button type="submit" class="btn btn-primary">Save book</button>
+			
+			@if (Book.Id > 0)
+			{
+				<a class="btn btn-danger" @onclick="@DeleteBook">Delete</a>
+			}
+		</EditForm>
+	}
+	else
+	{
+		<div class="alert @StatusClass">@Message</div>
+		<a class="btn btn-outline-primary" @onclick="@NavigateToList">Back to overview</a>
+	}
+}

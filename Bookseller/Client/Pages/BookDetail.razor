@@ -1,0 +1,11 @@
+﻿@page "/books/view/{BookId}"
+
+@if (Book == null)
+{
+	<p><em>Loading...</em></p>
+}
+else
+{
+	<h3>Details for @Book.Title</h3>
+	<p>By @Book.Author</p>
+}
